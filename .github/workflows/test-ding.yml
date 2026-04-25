@@ -1,0 +1,20 @@
+name: test-ding-action
+on: [push, workflow_dispatch]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run under DING
+        id: ding
+        uses: zuchka/ding-action@v0.2.0-alpha
+        with:
+          command: echo "hello from ding"
+          rules: ding.yaml
+
+      - name: Show outputs
+        run: |
+          echo "exit-code: ${{ steps.ding.outputs.exit-code }}"
+          echo "alerts-fired: ${{ steps.ding.outputs.alerts-fired }}"
