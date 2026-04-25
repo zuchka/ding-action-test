@@ -1,7 +1,8 @@
 rules:
   - name: exit_ok
-    match: { event: run.exit }
-    condition: exit_code == 0
-    message: "run completed successfully, exit={{ .exit_code }}"
+    match:
+      metric: run.exit
+    condition: value == 0
+    message: "run completed successfully, exit={{ .value }}"
     alert:
       - notifier: github_actions
